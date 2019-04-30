@@ -1,0 +1,22 @@
+kind: Model
+name: "keras_retina_screening"
+runtime: "hydrosphere/serving-runtime-python-3.7:dev"
+install-command: "pip install -r requirements.txt"
+payload:
+  - "src/"
+  - "requirements.txt"
+  - "../inceptionv3_retina_screening1.h5"
+
+contract:
+  name: "predict"
+  inputs:
+    shaped_image:
+      shape: [1, 600, 600, 3]
+      type: float64
+      profile: image
+
+  outputs:
+    result:
+      shape: [1]
+      type: string
+      profile: text

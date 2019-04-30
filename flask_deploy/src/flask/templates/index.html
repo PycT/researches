@@ -1,0 +1,179 @@
+<!doctype html>
+<head>
+	<title>
+		Retina RoboScreening v 1.0
+	</title>
+	<style>
+	
+	.button
+	{
+		border: 2px outset;
+		background-color: #dadaff;
+	}
+
+	.weekday
+	{
+		background-color: #dfdfdf;
+		text-align: center;
+		margin: 2px;
+	}
+
+	.normal, .disabled
+	{
+		text-align: center;
+	}
+
+	.disabled
+	{
+		color: #dadada;
+		text-decoration: line-through;
+	}
+
+	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div width = "80%" align = "left" style = "padding: 128px;">
+	<form action = "{{ url_for('index_page') }}" enctype="multipart/form-data" method="POST"  onSubmit = "getElementById('messagebox').innerHTML = '<img src=\'{{ url_for('static', filename='loader.gif') }}\' width = 64 style=\'vertical-align: middle;\'>&nbsp;&nbsp;&nbsp;Retina image analysis processing, please wait.'">
+		<b>Patient</b>:<br><br>
+		<input type="text" name="Patient" placeholder="Patient Number" {% if patient %} value = "{{ patient }}" {% endif %} required><br><br>
+		<b>Retina image file:</b><br><br>
+		<input type="file" name="retina_image" class="button" required><br><br>
+		<input type="submit" name="SubmitButton" value="Check" class="button">
+	</form>
+	<hr>
+
+	<div id="messagebox">
+	{% if patient %}
+	<h2>
+		Patient: {{ patient }}
+	</h2>
+	{% endif %}
+
+	<table width = "100%">
+		<tr valign = "top">
+			<td>
+				{% if image_name %}
+				Retina photo:<br>
+				<img src = "{{ url_for('static', filename=image_name) }}" width="300">
+				{% endif %}
+
+				{% if screening %}
+					{% if screening == "Normal" %}
+					<h3>
+						Automatic screening result: <span style="color: green;">{{screening}}</span>
+					</h3>
+					{% else %}
+					<h3>
+						Automatic screening result: <span style="color: red;">{{screening}}</span>
+					</h3>
+					{% endif %}
+				{% endif %}
+			</td>
+			<td align = "center">
+				{% if screening %}
+				<form action = "{{ url_for('appointment_confirmation_page') }}" method = "POST">
+					<input type = "hidden" name = "patient" value = "{{ patient }}">
+					{% if screening == "Normal" %}
+					The retina scan looks <b><span style="color: green">normal</span>.<br> Schedule an appointment with Dr. McCoy anyway? </b><br><br>
+					&nbsp;&nbsp;&nbsp;<input type="submit" value="Schedule an Appointment for Patient {{ patient }}" class="button" style="background-color: #daffda"><br><br>
+					{% else %}
+					The retina scan looks <b><span style="color: red">abnormal</span>.<br> Please schedule an appointment with Dr. McCoy! </b><br><br>
+					&nbsp;&nbsp;&nbsp;<input type="submit" value="Schedule an Appointment for Patient {{ patient }}" class="button" style="background-color: #ffdada"><br><br>
+					{% endif %}
+				<table width = "100%">
+					<tr valign = middle>
+						<td class = "weekday">
+							<b>Mon</b>
+						</td>
+						<td class = "weekday">
+							<b>Tue</b>
+						</td>
+						<td class = "weekday">
+							<b>Wed</b>
+						</td>
+						<td class = "weekday">
+							<b>Thu</b>
+						</td>
+						<td class = "weekday">
+							<b>Fri</b>
+						</td>
+					</tr>
+					<tr valign = middle>
+						<td class = "disabled">
+							<input type = "radio" name = "scheduled_to" value = "Monday 10:00 am" disabled>&nbsp;10:00 am
+						</td>
+						<td class = "normal">
+							<input type = "radio" name = "scheduled_to" value = "Tuesday 3:00 pm">&nbsp;&nbsp;3:00 pm
+						</td>
+						<td class = "normal">
+							<input type = "radio" name = "scheduled_to" value = "Wednesday 10:00 am">&nbsp;10:00 am
+						</td>
+						<td class = "disabled">
+							<input type = "radio" name = "scheduled_to" value = "Thursday 3:00 pm" disabled>&nbsp;&nbsp;3:00 pm
+						</td>
+						<td class = "normal">
+							<input type = "radio" name = "scheduled_to" value = "Friday 10:00 am">&nbsp;10:00 am
+						</td>
+					</tr>
+					<tr valign = middle>
+						<td class = "normal">
+							<input type = "radio" name = "scheduled_to" value = "Monday 11:00 am" checked>&nbsp;11:00 am
+						</td>
+						<td class = "normal">
+							<input type = "radio" name = "scheduled_to" value = "Tuesday 4:00 pm">&nbsp;&nbsp;4:00 pm
+						</td>
+						<td class = "normal">
+							<input type = "radio" name = "scheduled_to" value = "Wednesday 11:00 am">&nbsp;11:00 am
+						</td>
+						<td class = "normal">
+							<input type = "radio" name = "scheduled_to" value = "Thursday 4:00 pm">&nbsp;&nbsp;4:00 pm
+						</td>
+						<td class = "disabled">
+							<input type = "radio" name = "scheduled_to" value = "Friday 11:00 am" disabled>&nbsp;11:00 am
+						</td>
+					</tr>
+					<tr valign = middle>
+						<td class = "normal">
+							<input type = "radio" name = "scheduled_to" value = "Monday 12:00 am">&nbsp;12:00 am
+						</td>
+						<td class = "normal">
+							<input type = "radio" name = "scheduled_to" value = "Tuesday 5:00 pm">&nbsp;&nbsp;5:00 pm
+						</td>
+						<td class = "disabled">
+							<input type = "radio" name = "scheduled_to" value = "Wednesday 12:00 am" disabled>&nbsp;12:00 am
+						</td>
+						<td class = "normal">
+							<input type = "radio" name = "scheduled_to" value = "Thursday 5:00 pm">&nbsp;&nbsp;5:00 pm
+						</td>
+						<td class = "disabled">
+							<input type = "radio" name = "scheduled_to" value = "Friday 12:00 am" disabled>&nbsp;12:00 am
+						</td>
+					</tr>
+					<tr valign = middle>
+						<td class = "normal">
+							<input type = "radio" name = "scheduled_to" value = "Monday 1:00 pm">&nbsp;&nbsp;1:00 pm
+						</td>
+						<td class = "normal">
+							<input type = "radio" name = "scheduled_to" value = "Tuesday 6:00 pm">&nbsp;&nbsp;6:00 pm
+						</td>
+						<td class = "normal">
+							<input type = "radio" name = "scheduled_to" value = "Wednesday 1:00 pm">&nbsp;&nbsp;1:00 pm
+						</td>
+						<td class = "normal">
+							<input type = "radio" name = "scheduled_to" value = "Thursday 6:00 pm">&nbsp;&nbsp; 6:00 pm
+						</td>
+						<td class = "disabled">
+							<input type = "radio" name = "scheduled_to" value = "Friday 1:00 pm" disabled>&nbsp;&nbsp;1:00 pm
+						</td>
+					</tr>
+				</table>
+				</form>
+				{% endif %}
+			</td>
+		</tr>
+	</table>
+	</div>
+</div>
+
+</body>

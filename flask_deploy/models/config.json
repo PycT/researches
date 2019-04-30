@@ -1,0 +1,4 @@
+{
+	"rest_destination_url" : "https://dev.k8s.hydrosphere.io/gateway/application/pewpew",
+	"grpc_destination_url" : "dev.k8s.hydrosphere.io:443"
+}

@@ -1,0 +1,322 @@
+Custom config does not exist
+Running Manager with:
+JAVA_OPTS=-Xmx256M -Xms256M
+APP_OPTS=-Dapplication.grpc-port=9091 -Dapplication.port=9090 -Dakka.http.server.parsing.max-content-length=1073741824 -Dakka.http.client.parsing.max-content-length=1073741824 -Dopen-tracing.zipkin.enabled=false -Dopen-tracing.zipkin.port=9411 -Dopen-tracing.zipkin.host=zipkin -Dmanager.advertised-host=hydro-serving-manager-serving -Dmanager.advertised-port=9091 -Ddatabase.jdbc-url=jdbc:postgresql://postgres-serving:5432/docker -Ddatabase.username=docker -Ddatabase.password=docker -Dcloud-driver.type=kubernetes -Dcloud-driver.proxy-host=localhost -Dcloud-driver.proxy-port=8001 -Dcloud-driver.kube-namespace=default -Dcloud-driver.kube-registry-secret-name=localhost-docker-credentials-serving -Ddocker-repository.type=remote -Ddocker-repository.host=docker-registry-serving.default.svc.cluster.local:5000 -Ddocker-repository.pull-host=localhost:5000 -Dmetrics.influx-db.collect-timeout=30 -Dmetrics.influx-db.database-name=metrics -Dmetrics.influx-db.host=influx-serving -Dmetrics.influx-db.port=8086 -Dapplication.shadowing-on=false -Dsidecar.admin-port=8082 -Dsidecar.ingress-port=8080 -Dsidecar.egress-port=8081 -Dsidecar.host=localhost
+Archive:  /hydro-serving/app/lib/jffi-1.2.15-native.jar
+   creating: jni/x86_64-Linux/
+  inflating: jni/x86_64-Linux/libjffi-1.2.so
+[32m[2019-04-22 16:10:00.931][INFO][manager-akka.actor.default-dispatcher-2] a.e.s.Slf4jLogger.applyOrElse.92[m Slf4jLogger started
+[32m[2019-04-22 16:10:01.435][INFO][main] i.h.s.m.ManagerBoot$.delayedEndpoint$io$hydrosphere$serving$manager$ManagerBoot$1.39[m Config loaded:
+ManagerConfiguration(application = ApplicationConfig(port = 9090, grpcPort = 9091), manager = AdvertisedConfiguration(advertisedHost = "hydro-serving-manager-serving", advertisedPort = 9091), localStorage = None(), database = HikariConfiguration(jdbcUrl = "jdbc:postgresql://postgres-serving:5432/docker", username = "docker", password = "docker", driverClassname = "org.postgresql.Driver", maximumPoolSize = 10), cloudDriver = Kubernetes(proxyHost = "localhost", proxyPort = 8001, kubeNamespace = "default", kubeRegistrySecretName = "localhost-docker-credentials-serving", loggingConfiguration = None()), openTracing = OpenTracingConfiguration(zipkin = ZipkinConfiguration(host = "zipkin", port = 9411, enabled = false)), dockerRepository = Remote(host = "docker-registry-serving.default.svc.cluster.local:5000", username = None(), password = None(), pullHost = Some(value = "localhost:5000"), imagePrefix = None()), metrics = MetricsConfiguration(elasticSearch = None(), influxDb = Some(value = InfluxDBMetricsConfiguration(collectTimeout = 30, port = 8086, host = "influx-serving", databaseName = "metrics"))))
+[33m[2019-04-22 16:10:02.312][WARN][main] i.h.s.m.ManagerBoot$.delayedEndpoint$io$hydrosphere$serving$manager$ManagerBoot$1.49[m Failed to read docker config. Falling back to defaults
+spray.json.DeserializationException: Object is missing required member 'proxies'
+	at spray.json.package$.deserializationError(package.scala:23) ~[spray-json_2.12-1.3.4.jar:?]
+	at spray.json.ProductFormats.fromField(ProductFormats.scala:60) ~[spray-json_2.12-1.3.4.jar:?]
+	at spray.json.ProductFormats.fromField$(ProductFormats.scala:50) ~[spray-json_2.12-1.3.4.jar:?]
+	at io.hydrosphere.serving.manager.infrastructure.protocol.CommonJsonProtocol$.fromField(CommonJsonProtocol.scala:93) ~[manager.jar:2.0.1]
+	at spray.json.ProductFormatsInstances$$anon$1.read(ProductFormatsInstances.scala:34) ~[spray-json_2.12-1.3.4.jar:?]
+	at spray.json.ProductFormatsInstances$$anon$1.read(ProductFormatsInstances.scala:26) ~[spray-json_2.12-1.3.4.jar:?]
+	at spray.json.JsValue.convertTo(JsValue.scala:32) ~[spray-json_2.12-1.3.4.jar:?]
+	at io.hydrosphere.serving.manager.config.DockerClientConfig$.$anonfun$load$1(DockerClientConfig.scala:33) ~[manager.jar:2.0.1]
+	at scala.util.Try$.apply(Try.scala:213) ~[scala-library-2.12.8.jar:?]
+	at io.hydrosphere.serving.manager.config.DockerClientConfig$.load(DockerClientConfig.scala:30) ~[manager.jar:2.0.1]
+	at io.hydrosphere.serving.manager.ManagerBoot$.delayedEndpoint$io$hydrosphere$serving$manager$ManagerBoot$1(ManagerBoot.scala:46) ~[manager.jar:2.0.1]
+	at io.hydrosphere.serving.manager.ManagerBoot$delayedInit$body.apply(ManagerBoot.scala:25) ~[manager.jar:2.0.1]
+	at scala.Function0.apply$mcV$sp(Function0.scala:39) ~[scala-library-2.12.8.jar:?]
+	at scala.Function0.apply$mcV$sp$(Function0.scala:39) ~[scala-library-2.12.8.jar:?]
+	at scala.runtime.AbstractFunction0.apply$mcV$sp(AbstractFunction0.scala:17) ~[scala-library-2.12.8.jar:?]
+	at scala.App.$anonfun$main$1$adapted(App.scala:80) ~[scala-library-2.12.8.jar:?]
+	at scala.collection.immutable.List.foreach(List.scala:392) [scala-library-2.12.8.jar:?]
+	at scala.App.main(App.scala:80) [scala-library-2.12.8.jar:?]
+	at scala.App.main$(App.scala:78) [scala-library-2.12.8.jar:?]
+	at io.hydrosphere.serving.manager.ManagerBoot$.main(ManagerBoot.scala:25) [manager.jar:2.0.1]
+	at io.hydrosphere.serving.manager.ManagerBoot.main(ManagerBoot.scala) [manager.jar:2.0.1]
+Caused by: java.util.NoSuchElementException: key not found: proxies
+	at scala.collection.immutable.Map$Map1.apply(Map.scala:114) ~[scala-library-2.12.8.jar:?]
+	at spray.json.ProductFormats.fromField(ProductFormats.scala:57) ~[spray-json_2.12-1.3.4.jar:?]
+	... 19 more
+[32m[2019-04-22 16:10:02.320][INFO][main] i.h.s.m.ManagerBoot$.delayedEndpoint$io$hydrosphere$serving$manager$ManagerBoot$1.55[m Using docker client config: DockerClientConfig(proxies = Map())
+[32m[2019-04-22 16:10:02.567][INFO][manager-akka.actor.default-dispatcher-3] s.api.$anonfun$applyOrElse$3.83[m Using following context for connecting to Kubernetes cluster: Context(Cluster(v1,http://localhost:8001,false,None),NoAuth,Namespace(Namespace,v1,ObjectMeta(default,,,,,,None,None,None,Map(),Map(),List(),0,None,None),None,None))
+[32m[2019-04-22 16:10:03.350][INFO][main] c.z.h.HikariDataSource.<init>.71[m HikariPool-1 - Starting...
+[32m[2019-04-22 16:10:03.551][INFO][main] c.z.h.p.PoolBase.getAndSetNetworkTimeout.505[m HikariPool-1 - Driver does not support get/set network timeout for connections. (Method org.postgresql.jdbc.PgConnection.getNetworkTimeout() is not yet implemented.)
+[32m[2019-04-22 16:10:03.583][INFO][main] c.z.h.HikariDataSource.<init>.73[m HikariPool-1 - Start completed.
+[32m[2019-04-22 16:10:03.598][INFO][main] o.f.c.i.u.VersionPrinter.info.44[m Flyway 4.2.0 by Boxfuse
+[32m[2019-04-22 16:10:03.617][INFO][main] o.f.c.i.d.DbSupportFactory.info.44[m Database: jdbc:postgresql://postgres-serving:5432/docker (PostgreSQL 9.6)
+[32m[2019-04-22 16:10:03.765][INFO][main] o.f.c.i.c.DbSchemas.info.44[m Creating schema "hydro_serving" ...
+[32m[2019-04-22 16:10:03.785][INFO][main] o.f.c.i.m.MetaDataTableImpl.info.44[m Creating Metadata table: "hydro_serving"."schema_version"
+[32m[2019-04-22 16:10:03.901][INFO][main] o.f.c.i.c.DbMigrate.info.44[m Current version of schema "hydro_serving": null
+[32m[2019-04-22 16:10:03.917][INFO][main] o.f.c.i.c.DbMigrate.info.44[m Migrating schema "hydro_serving" to version 1 - initial
+[32m[2019-04-22 16:10:03.963][INFO][main] o.f.c.i.c.DbMigrate.info.44[m Migrating schema "hydro_serving" to version 2 - servable upd
+[32m[2019-04-22 16:10:03.977][INFO][main] o.f.c.i.c.DbMigrate.info.44[m Successfully applied 2 migrations to schema "hydro_serving" (execution time 00:00.101s).
+[32m[2019-04-22 16:10:04.165][INFO][main] i.h.s.HydrospherePostgresDriver.info.34[m [36m >>> binding uuid -> java.util.UUID [0m
+[32m[2019-04-22 16:10:04.166][INFO][main] i.h.s.HydrospherePostgresDriver.info.34[m [36m >>> binding text -> java.lang.String [0m
+[32m[2019-04-22 16:10:04.166][INFO][main] i.h.s.HydrospherePostgresDriver.info.34[m [36m >>> binding bool -> Boolean [0m
+[32m[2019-04-22 16:10:04.170][INFO][main] i.h.s.HydrospherePostgresDriver.info.34[m [36m >>> binding _uuid -> scala.collection.Seq [0m
+[32m[2019-04-22 16:10:04.171][INFO][main] i.h.s.HydrospherePostgresDriver.info.34[m [36m >>> binding _text -> scala.collection.Seq [0m
+[32m[2019-04-22 16:10:04.171][INFO][main] i.h.s.HydrospherePostgresDriver.info.34[m [36m >>> binding _int8 -> scala.collection.Seq [0m
+[32m[2019-04-22 16:10:04.172][INFO][main] i.h.s.HydrospherePostgresDriver.info.34[m [36m >>> binding _int4 -> scala.collection.Seq [0m
+[32m[2019-04-22 16:10:04.172][INFO][main] i.h.s.HydrospherePostgresDriver.info.34[m [36m >>> binding _int2 -> scala.collection.Seq [0m
+[32m[2019-04-22 16:10:04.172][INFO][main] i.h.s.HydrospherePostgresDriver.info.34[m [36m >>> binding _float4 -> scala.collection.Seq [0m
+[32m[2019-04-22 16:10:04.172][INFO][main] i.h.s.HydrospherePostgresDriver.info.34[m [36m >>> binding _float8 -> scala.collection.Seq [0m
+[32m[2019-04-22 16:10:04.173][INFO][main] i.h.s.HydrospherePostgresDriver.info.34[m [36m >>> binding _bool -> scala.collection.Seq [0m
+[32m[2019-04-22 16:10:04.173][INFO][main] i.h.s.HydrospherePostgresDriver.info.34[m [36m >>> binding _date -> scala.collection.Seq [0m
+[32m[2019-04-22 16:10:04.173][INFO][main] i.h.s.HydrospherePostgresDriver.info.34[m [36m >>> binding _time -> scala.collection.Seq [0m
+[32m[2019-04-22 16:10:04.174][INFO][main] i.h.s.HydrospherePostgresDriver.info.34[m [36m >>> binding _timestamp -> scala.collection.Seq [0m
+[32m[2019-04-22 16:10:05.314][INFO][manager-akka.actor.default-dispatcher-2] s.api.$anonfun$applyOrElse$3.83[m [ { reqId=a9c1f109-fb3f-4a50-8484-d0752d4ae1d0} } - about to send HTTP request: GET http://localhost:8001/api/v1/namespaces/default/services]
+[32m[2019-04-22 16:10:06.383][INFO][manager-akka.actor.default-dispatcher-3] s.api.$anonfun$applyOrElse$3.83[m [ { reqId=a9c1f109-fb3f-4a50-8484-d0752d4ae1d0} } - received response with HTTP status 200]
+[32m[2019-04-22 16:10:07.024][INFO][scala-execution-context-global-31] i.h.s.m.ManagerBoot$.$anonfun$new$5.63[m List()
+[32m[2019-04-22 16:10:07.063][INFO][main] i.h.s.m.ManagerServices.<init>.83[m Using class io.hydrosphere.serving.manager.domain.clouddriver.KubernetesDriver cloud driver
+[32m[2019-04-22 16:10:08.004][INFO][main] i.h.s.m.ManagerBoot$.delayedEndpoint$io$hydrosphere$serving$manager$ManagerBoot$1.107[m Started http service on port: 9090 and grpc service on 9091
+[1;31m[2019-04-22 16:11:22.759][ERROR][grpc-default-executor-0] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:12:37.757][ERROR][grpc-default-executor-1] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:13:52.809][ERROR][grpc-default-executor-2] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:20:49.788][ERROR][grpc-default-executor-3] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:22:04.814][ERROR][grpc-default-executor-5] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:23:19.839][ERROR][grpc-default-executor-6] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:24:34.874][ERROR][grpc-default-executor-7] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:25:49.891][ERROR][grpc-default-executor-8] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:27:04.922][ERROR][grpc-default-executor-10] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:28:19.945][ERROR][grpc-default-executor-12] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:29:34.966][ERROR][grpc-default-executor-14] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:30:49.989][ERROR][grpc-default-executor-15] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:32:05.016][ERROR][grpc-default-executor-17] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:33:20.039][ERROR][grpc-default-executor-18] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:34:35.067][ERROR][grpc-default-executor-20] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:35:50.089][ERROR][grpc-default-executor-21] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:37:05.125][ERROR][grpc-default-executor-23] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:38:20.137][ERROR][grpc-default-executor-24] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:39:35.166][ERROR][grpc-default-executor-25] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:40:50.186][ERROR][grpc-default-executor-25] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:42:05.218][ERROR][grpc-default-executor-27] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:43:20.243][ERROR][grpc-default-executor-28] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
+[1;31m[2019-04-22 16:44:35.279][ERROR][grpc-default-executor-30] i.h.s.m.d.DiscoveryGrpc$GrpcServingDiscovery.onError.33[m Client stream failed
+io.grpc.StatusRuntimeException: CANCELLED: cancelled before receiving half close
+	at io.grpc.Status.asRuntimeException(Status.java:521) ~[grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener.onCancel(ServerCalls.java:272) [grpc-stub-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerCallImpl$ServerStreamListenerImpl.closed(ServerCallImpl.java:293) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ServerImpl$JumpToApplicationThreadServerStreamListener$1Closed.runInContext(ServerImpl.java:742) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37) [grpc-core-1.18.0.jar:1.18.0]
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:123) [grpc-core-1.18.0.jar:1.18.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_151]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_151]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_151]
