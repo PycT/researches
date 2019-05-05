@@ -23,10 +23,10 @@ prediction_classes_quantity = 2; # "normal", "abnormal"
 
 #model_path = "../models/nasnet_retina_screening.h5";
 #model_path = "../models/nasnet_retina_screening600.h5";
-model_path = "../models/inceptionv3_retina_screening299.h5";
+model_path = "../models/inceptionv3_retina_screening600.h5";
 
-input_shape = (299, 299, 3);
-#input_convolution_core = (2, 2);
+input_shape = (600, 600, 3);
+input_convolution_core = (2, 2);
 #pretrained_input_shape = (331, 331, 3);
 pretrained_input_shape = (299, 299, 3);
 
@@ -106,9 +106,9 @@ def train_the_model(model, batch_size = 3, training_epochs = 77):
 
 	data_generator = tf.keras.preprocessing.image.ImageDataGenerator\
 	(
-		rescale = 1. / 255#,
-		#featurewise_center = True,
-		#featurewise_std_normalization = True
+		rescale = 1. / 255,
+		featurewise_center = True,
+		featurewise_std_normalization = True
 	);
 
 	training_set_generator = data_generator.flow_from_directory\
@@ -131,7 +131,7 @@ def train_the_model(model, batch_size = 3, training_epochs = 77):
 	(
 		training_set_generator,
 		epochs = training_epochs,
-		steps_per_epoch = math.floor(78 / batch_size),
+		steps_per_epoch = math.floor(165 / batch_size),
 		#validation_data = validation_set_generator,
 		#validation_steps = math.floor(64 / batch_size),
 		#class_weight = {0: 0.1, 1: 0.9},
@@ -143,7 +143,7 @@ def train_the_model(model, batch_size = 3, training_epochs = 77):
 def prepare_dataset():
 
 	dir_structure();
-	whole_set = make_data_sets_lists(sets_chopper = 1);
+	whole_set = make_data_sets_lists(sets_chopper = 0.7);
 	fill_sets_dir(whole_set);
 
 	return True;
@@ -155,13 +155,13 @@ def main():
 	pretrained_model = tf.keras.applications.inception_v3.InceptionV3(include_top = True, weights = None);
 
 	for layer in pretrained_model.layers[:-1]:
-		pass#layer.trainable = False;
+		layer.trainable = False;
 
 	pretrained_model.summary();
 
 	model = tf.keras.models.Sequential();
-	#model.add(tf.keras.layers.Conv2D(3, input_convolution_core, input_shape = input_shape));
-	#model.add(tf.keras.layers.MaxPooling2D());
+	model.add(tf.keras.layers.Conv2D(3, input_convolution_core, input_shape = input_shape));
+	model.add(tf.keras.layers.MaxPooling2D());
 	#model.add(tf.keras.layers.Reshape(pretrained_input_shape));
 	model.add(pretrained_model);
 	model.add(tf.keras.layers.Dense(1));
@@ -179,7 +179,7 @@ def main():
 		]
 	);
 	
-	model = train_the_model(model, batch_size = 5, training_epochs = 25);
+	model = train_the_model(model, batch_size = 12, training_epochs = 2);
 
 	model.save(model_path);
 

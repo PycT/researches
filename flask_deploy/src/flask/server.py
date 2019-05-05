@@ -48,4 +48,4 @@ def appointment_confirmation_page():
 	return "You are not supposed to be here.";
 
 if __name__ == "__main__":
-	web_app.run(debug = True, host = "0.0.0.0", port = 5000);
+	web_app.run(debug = True, host = "0.0.0.0", port = 5070);

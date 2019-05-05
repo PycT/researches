@@ -34,7 +34,7 @@
 </head>
 <body>
 <div width = "80%" align = "left" style = "padding: 128px;">
-	<form action = "{{ url_for('index_page') }}" enctype="multipart/form-data" method="POST"  onSubmit = "getElementById('messagebox').innerHTML = '<img src=\'{{ url_for('static', filename='loader.gif') }}\' width = 64 style=\'vertical-align: middle;\'>&nbsp;&nbsp;&nbsp;Retina image analysis processing, please wait.'">
+	<form action = "{{ url_for('index_page') }}" enctype="multipart/form-data" method="POST"  onSubmit = "getElementById('messagebox').innerHTML = '<img src=\'{{ url_for('static', filename='elements/loader.gif') }}\' width = 64 style=\'vertical-align: middle;\'>&nbsp;&nbsp;&nbsp;Retina image analysis processing, please wait.'">
 		<b>Patient</b>:<br><br>
 		<input type="text" name="Patient" placeholder="Patient Number" {% if patient %} value = "{{ patient }}" {% endif %} required><br><br>
 		<b>Retina image file:</b><br><br>
