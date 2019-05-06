@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, url_for;
 from PIL import Image;
 import base64;
+import json;
 
 import requests;
 
@@ -39,17 +40,11 @@ def index_page():
 
 		res = requests.post(url = ml_server_url, headers = http_headers, data = http_payload);
 
-		"""
-		if res == 8:
-			screening = "Normal";
-		else:
-			screening = "Abnormal";
-		"""
 		print("Request sent ok.");
-		screening = res.text;
+		screening = json.loads(res.text)["screening"];
 
-		return screening;
-		#return render_template("index.html", image_name = image_name, patient = patient, screening = screening);
+		#return screening;
+		return render_template("index.html", image_name = image_name, patient = patient, screening = screening);
 
 
 	return render_template("index.html");
