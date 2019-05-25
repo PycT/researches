@@ -8,10 +8,10 @@ model_version = "_299_0.0";
 #Meta End
 
 #Paths start
-dataset_img_dir = "/media/rustem.zakiev/DATA/Datasets/kaggle_retinopathy/train";
-training_set_dir = "/media/rustem.zakiev/DATA/Datasets/kaggle_retinopathy/training";
-validation_set_dir = "/media/rustem.zakiev/DATA/Datasets/kaggle_retinopathy/validation";
-dataset_labels_path = "/media/rustem.zakiev/DATA/Datasets/kaggle_retinopathy/labels.csv";
+dataset_img_dir = "/home/pyct/DATA/Datasets/kaggle_retinopathy/train";
+training_set_dir = "/home/pyct/DATA/Datasets/kaggle_retinopathy/training";
+validation_set_dir = "/home/pyct/DATA/Datasets/kaggle_retinopathy/validation";
+dataset_labels_path = "/home/pyct/DATA/Datasets/kaggle_retinopathy/labels.csv";
 model_dir = "models/"
 model_name = "kaggle_retinopathy"
 model_save_path = model_dir + model_name + model_version + ".h5"

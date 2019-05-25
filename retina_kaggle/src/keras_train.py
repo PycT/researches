@@ -1,6 +1,7 @@
 import keras;
 import tensorflow as tf;
 import os;
+from math import ceil;
 
 #Meta Start
 model_name = "kaggle_retinopathy";
@@ -9,8 +10,8 @@ model_version = "_299_0.0";
 #Meta End
 
 #Paths start
-training_set_dir = "/media/rustem.zakiev/DATA/Datasets/kaggle_retinopathy/training";
-validation_set_dir = "/media/rustem.zakiev/DATA/Datasets/kaggle_retinopathy/validation";
+training_set_dir = "/home/pyct/DATA/Datasets/kaggle_retinopathy/training";
+validation_set_dir = "/home/pyct/DATA/Datasets/kaggle_retinopathy/validation";
 
 model_dir = "../models/"
 
@@ -44,17 +45,19 @@ batch_size = 128;
 
 #-------------------------------------------------------------------------
 
-def init_model():
-	global number_of_classes;
+def init_model(number_of_classes = number_of_classes, learning_rate = learning_rate):
+	
+    model = keras.applications.inception_v3.InceptionV3(weights = None, classes = number_of_classes);
+    optimizer = keras.optimizers.SGD(lr = learning_rate);
+    loss = keras.losses.mean_squared_error;
+    model.compile(optimizer = optimizer, loss = loss, metrics = ['accuracy']);
 
-	model = keras.applications.inception_v3.InceptionV3(weights = None, classes = number_of_classes);
-
-	return model;
+    return model;
 
 def train_model(model, training_set_dir = training_set_dir, validation_set_dir = validation_set_dir,\
                           epochs = epochs, learning_rate = learning_rate, batch_size = batch_size):
 
-    data_generator = keras.preporcessing.image.ImageDataGenerator\
+    data_generator = keras.preprocessing.image.ImageDataGenerator\
     (
         rescale = 1. / 255
     );
@@ -80,9 +83,12 @@ def train_model(model, training_set_dir = training_set_dir, validation_set_dir =
     model.fit_generator\
     (
         generator = training_flow,
+        steps_per_epoch = ceil( 28100 / batch_size ),
         epochs = epochs,
         verbose = 2,
-        validation_data = validation_flow
+        validation_data = validation_flow,
+        validation_steps = ceil( 7026 / batch_size ),
+        validation_freq = 8
 
     );
 
@@ -90,7 +96,7 @@ def train_model(model, training_set_dir = training_set_dir, validation_set_dir =
 
 def main():
 
-    model = train_model(initi_model());
+    model = train_model(init_model());
 
     model.save(model_save_path);
 
