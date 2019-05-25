@@ -40,7 +40,7 @@ input_shape = (299, 299, 3);
 #Training Parameters Start
 epochs = 32;
 learning_rate = 1E-3;
-batch_size = 128;
+batch_size = 8;
 #Training Parameters End
 
 #-------------------------------------------------------------------------
@@ -96,9 +96,12 @@ def train_model(model, training_set_dir = training_set_dir, validation_set_dir =
 
 def main():
 
-    model = train_model(init_model());
+    graph = tf.get_default_graph();
 
-    model.save(model_save_path);
+    with graph.as_default():
+
+        model = train_model(init_model());
+        model.save(model_save_path);
 
 if __name__ == "__main__":
 
