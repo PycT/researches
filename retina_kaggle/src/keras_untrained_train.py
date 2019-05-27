@@ -85,8 +85,8 @@ def train_model(model, training_set_dir = training_set_dir, validation_set_dir =
         generator = training_flow,
         steps_per_epoch = ceil( 28100 / batch_size ),
         epochs = epochs,
-        verbose = 2,
         validation_data = validation_flow,
+        verbose = 1,
         validation_steps = ceil( 7026 / batch_size ),
         validation_freq = 8
 
