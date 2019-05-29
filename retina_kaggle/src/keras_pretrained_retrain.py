@@ -38,7 +38,7 @@ input_shape = (299, 299, 3);
 
 
 #Training Parameters Start
-epochs = 32;
+epochs = 7;
 learning_rate = 1E-3;
 batch_size = 32;
 #Training Parameters End
@@ -110,6 +110,10 @@ def main():
     with graph.as_default():
 
         model = train_model(init_model());
+
+        if (not os.path.exists(model_dir)):
+            os.mkdir(model_dir);
+            
         model.save(model_save_path);
 
 if __name__ == "__main__":
