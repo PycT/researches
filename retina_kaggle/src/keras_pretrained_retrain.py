@@ -54,7 +54,7 @@ def init_model(number_of_classes = number_of_classes, learning_rate = learning_r
     for layer in inception_model.layers:
         layer.trainable = False;
 
-    new_model_output = keras.layers.Dense(number_of_classes, activation = "relu")(inception_model.layers[-1].output)
+    new_model_output = keras.layers.Dense(number_of_classes, activation = "sigmoid")(inception_model.layers[-1].output)
     model = keras.models.Model(inception_model.input, new_model_output);
     
     optimizer = keras.optimizers.SGD(lr = learning_rate);

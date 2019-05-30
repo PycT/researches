@@ -3,29 +3,23 @@ from math import floor;
 from tqdm import tqdm;
 
 #Meta Start
-#model_version = "_600_0.0";
-model_version = "_299_0.0";
-#Meta End
 
 #Paths start
 dataset_img_dir = "/home/pyct/DATA/Datasets/kaggle_retinopathy/train";
 training_set_dir = "/home/pyct/DATA/Datasets/kaggle_retinopathy/training";
 validation_set_dir = "/home/pyct/DATA/Datasets/kaggle_retinopathy/validation";
 dataset_labels_path = "/home/pyct/DATA/Datasets/kaggle_retinopathy/labels.csv";
-model_dir = "models/"
-model_name = "kaggle_retinopathy"
-model_save_path = model_dir + model_name + model_version + ".h5"
 #Paths end
 
 
 #Model/Data parameters start
 number_of_classes = 5;
 classes = {
-    0: "0 No_DR",
-    1: "1 Mild_DR",
-    2: "2 Moderate_DR",
-    3: "3 Severe_DR",
-    4: "4 Proliferative_DR"
+    0: "0_No_DR",
+    1: "1_Mild_DR",
+    2: "2_Moderate_DR",
+    3: "3_Severe_DR",
+    4: "4_Proliferative_DR"
 };
 
 
