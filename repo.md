@@ -1,1 +1,1 @@
-https://github.com/PycT/researches.git
+git@github.com:PycT/researches.git

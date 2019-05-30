@@ -21,11 +21,11 @@ model_save_path = model_dir + model_name + model_version + ".h5"
 #Model/Data parameters start
 number_of_classes = 5;
 classes = {
-    0: "No_DR",
-    1: "Mild_DR",
-    2: "Moderate_DR",
-    3: "Severe_DR",
-    4: "Proliferative_DR"
+    0: "0 No_DR",
+    1: "1 Mild_DR",
+    2: "2 Moderate_DR",
+    3: "3 Severe_DR",
+    4: "4 Proliferative_DR"
 };
 
 
