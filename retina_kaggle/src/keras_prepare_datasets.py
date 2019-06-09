@@ -1,6 +1,7 @@
 import os, shutil;
 from math import floor;
 from tqdm import tqdm;
+from PIL import Image;
 
 #Meta Start
 
@@ -70,10 +71,13 @@ def prepare_sets(sets_split = 0.8, labels_path = dataset_labels_path, source_img
         if (i > training_set_size) and (target_dir == training_set_dir):
             target_dir = validation_set_dir;
 
-        source_img = "{}/{}.jpeg".format(source_img_dir, item[0]);
-        destination_img = "{}/{}/{}.jpeg".format(target_dir, classes[int(item[1])], item[0]);
+        source_img_path = "{}/{}.jpeg".format(source_img_dir, item[0]);
+        destination_img_path = "{}/{}/{}.jpeg".format(target_dir, classes[int(item[1])], item[0]);
 
-        shutil.copy(source_img, destination_img);
+        the_image = Image.open(source_img_path);
+        resized_image = the_image.resize((input_shape[0], input_shape[1]), Image.LANCZOS);
+        resized_image.save(destination_img_path);
+        #shutil.copy(source_img, destination_img);
 
         i += 1;
 

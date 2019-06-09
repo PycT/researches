@@ -5,7 +5,9 @@ from math import ceil;
 
 #Meta Start
 model_name = "kaggle_retinopathy";
-model_version = "_299_0.0";
+model_version = "_299_0.2";
+#ver 0.1 - changed activation relu to sigmoid and trained for 32 epochs instead of 7.
+#ver 0.2 - unfreezed all the layers and model is not pretrained.
 #model_version = "_600_0.0";
 #Meta End
 
@@ -40,17 +42,26 @@ input_shape = (299, 299, 3);
 #Training Parameters Start
 epochs = 32;
 learning_rate = 1E-3;
-batch_size = 8;
+batch_size = 64;
 #Training Parameters End
 
 #-------------------------------------------------------------------------
 
 def init_model(number_of_classes = number_of_classes, learning_rate = learning_rate):
 	
-    model = keras.applications.inception_v3.InceptionV3(weights = None, classes = number_of_classes);
+    inception_model = keras.applications.inception_v3.InceptionV3(weights = None);#, classes = number_of_classes);
+
+    inception_model.layers.pop();
+
+    # for layer in inception_model.layers:
+    #     layer.trainable = False;
+
+    new_model_output = keras.layers.Dense(number_of_classes, activation = "sigmoid")(inception_model.layers[-1].output)
+    model = keras.models.Model(inception_model.input, new_model_output);
+    
     optimizer = keras.optimizers.SGD(lr = learning_rate);
     loss = keras.losses.mean_squared_error;
-    model.compile(optimizer = optimizer, loss = loss, metrics = ['accuracy']);
+    model.compile(optimizer = optimizer, loss = loss, metrics = ["accuracy"]);
 
     return model;
 
@@ -65,19 +76,19 @@ def train_model(model, training_set_dir = training_set_dir, validation_set_dir =
     training_flow = data_generator.flow_from_directory\
     (
         directory = training_set_dir,
-        target_size = (input_shape[0], input_shape[1]),
+        #target_size = (input_shape[0], input_shape[1]),
         class_mode = "categorical",
-        batch_size = batch_size,
-        interpolation = "bicubic"
+        batch_size = batch_size#,
+        #interpolation = "bicubic"
     );
 
     validation_flow = data_generator.flow_from_directory\
     (
         directory = validation_set_dir,
-        target_size = (input_shape[0], input_shape[1]),
+        #target_size = (input_shape[0], input_shape[1]),
         class_mode = "categorical",
-        batch_size = batch_size,
-        interpolation = "bicubic"
+        batch_size = batch_size#,
+        #interpolation = "bicubic"
     );
 
     model.fit_generator\
@@ -85,8 +96,8 @@ def train_model(model, training_set_dir = training_set_dir, validation_set_dir =
         generator = training_flow,
         steps_per_epoch = ceil( 28100 / batch_size ),
         epochs = epochs,
-        validation_data = validation_flow,
         verbose = 1,
+        validation_data = validation_flow,
         validation_steps = ceil( 7026 / batch_size ),
         validation_freq = 8
 
@@ -101,6 +112,10 @@ def main():
     with graph.as_default():
 
         model = train_model(init_model());
+
+        if (not os.path.exists(model_dir)):
+            os.mkdir(model_dir);
+            
         model.save(model_save_path);
 
 if __name__ == "__main__":

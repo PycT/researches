@@ -5,7 +5,9 @@ from math import ceil;
 
 #Meta Start
 model_name = "kaggle_retinopathy";
-model_version = "_299_0.0";
+model_version = "_299_0.1";
+#ver 0.1 - changed activation relu to sigmoid and trained for 32 epochs instead of 7.
+#ver 0.2 - [keras_untrained_train] unfreezed convolution layers ot train.
 #model_version = "_600_0.0";
 #Meta End
 
@@ -38,9 +40,9 @@ input_shape = (299, 299, 3);
 
 
 #Training Parameters Start
-epochs = 7;
+epochs = 32;
 learning_rate = 1E-3;
-batch_size = 32;
+batch_size = 64;
 #Training Parameters End
 
 #-------------------------------------------------------------------------
