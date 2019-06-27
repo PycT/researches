@@ -5,9 +5,11 @@ from math import ceil;
 
 #Meta Start
 model_name = "kaggle_retinopathy";
-model_version = "_299_0.2";
+model_version = "_299_0.4";
 #ver 0.1 - changed activation relu to sigmoid and trained for 32 epochs instead of 7.
-#ver 0.2 - unfreezed all the layers and model is not pretrained.
+#ver 0.2 - unfreezed all the layers and model is not pretrained, batch size = 32, 128 epochs.
+#ver 0.3 - changed activation back to relu; unfreezed all the layers and model is not pretrained, batch size = 32, 128 epochs.
+#ver 0.4 - trained for 1000 epochs
 #model_version = "_600_0.0";
 #Meta End
 
@@ -18,6 +20,7 @@ validation_set_dir = "/home/pyct/DATA/Datasets/kaggle_retinopathy/validation";
 model_dir = "../models/"
 
 model_save_path = model_dir + model_name + model_version + ".h5"
+model_checkpoint_path = model_dir + model_name + model_version + "checkpoint.h5"
 #Paths end
 
 
@@ -40,9 +43,9 @@ input_shape = (299, 299, 3);
 
 
 #Training Parameters Start
-epochs = 32;
+epochs = 2#1000;
 learning_rate = 1E-3;
-batch_size = 64;
+batch_size = 32;
 #Training Parameters End
 
 #-------------------------------------------------------------------------
@@ -56,7 +59,7 @@ def init_model(number_of_classes = number_of_classes, learning_rate = learning_r
     # for layer in inception_model.layers:
     #     layer.trainable = False;
 
-    new_model_output = keras.layers.Dense(number_of_classes, activation = "sigmoid")(inception_model.layers[-1].output)
+    new_model_output = keras.layers.Dense(number_of_classes, activation = "relu")(inception_model.layers[-1].output)
     model = keras.models.Model(inception_model.input, new_model_output);
     
     optimizer = keras.optimizers.SGD(lr = learning_rate);
@@ -76,7 +79,7 @@ def train_model(model, training_set_dir = training_set_dir, validation_set_dir =
     training_flow = data_generator.flow_from_directory\
     (
         directory = training_set_dir,
-        #target_size = (input_shape[0], input_shape[1]),
+        target_size = (input_shape[0], input_shape[1]),
         class_mode = "categorical",
         batch_size = batch_size#,
         #interpolation = "bicubic"
@@ -85,11 +88,14 @@ def train_model(model, training_set_dir = training_set_dir, validation_set_dir =
     validation_flow = data_generator.flow_from_directory\
     (
         directory = validation_set_dir,
-        #target_size = (input_shape[0], input_shape[1]),
+        target_size = (input_shape[0], input_shape[1]),
         class_mode = "categorical",
         batch_size = batch_size#,
         #interpolation = "bicubic"
     );
+
+    model_checkpoint = keras.callbacks.ModelCheckpoint(model_checkpoint_path, verbose = 1, monitor = 'val_acc', save_best_only = True, save_weights_only = False,
+        mode = "max", period = 10);
 
     model.fit_generator\
     (
@@ -97,9 +103,10 @@ def train_model(model, training_set_dir = training_set_dir, validation_set_dir =
         steps_per_epoch = ceil( 28100 / batch_size ),
         epochs = epochs,
         verbose = 1,
+        callbacks = [model_checkpoint],
         validation_data = validation_flow,
         validation_steps = ceil( 7026 / batch_size ),
-        validation_freq = 8
+        validation_freq = 10
 
     );
 
